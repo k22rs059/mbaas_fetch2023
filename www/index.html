@@ -13,15 +13,17 @@
         // NCMB アクセスの準備
         let ncmb = new NCMB(appKey, clientKey);
         // 利用するデータベースを指定（存在しなければ生成）
-        let TestClass = ncmb.DataStore("FetchTest");
+        let TestClass = ncmb.DataStore("GPA");
 
         function register() {
             // 登録するレコードを用意
             let testRecord = new TestClass();
             let key = "text";
-            let value = $("#value").val();
+            let subject = $("#subject").val();
+            let grade = $("#grade").val();
             // レコードのフィールドと値を設定
-            testRecord.set(key, value);
+            testRecord.set(key, subject);
+            testRecord.set(key, grade);
             // レコードをデータベースに登録
             testRecord.save()
                 .then(function(m) {
@@ -32,8 +34,9 @@
                 })
         }
 
+
        function fetch() {  
-           var TestClass= ncmb.DataStore("FetchTest");
+           var TestClass= ncmb.DataStore("GPA");
             TestClass.fetch()
             .then(function(results){ 
                var data=results.get("text"); 
@@ -43,7 +46,7 @@
        }
 
        function fetchAll(){
-            var TestClass= ncmb.DataStore("FetchTest"); 
+            var TestClass= ncmb.DataStore("GPA"); 
             TestClass.fetchAll()
             .then(function(results){ 
                 let msg=""; 
@@ -62,8 +65,10 @@
 <body>
     <h1>mBaaS fetch</h1>
     <div>
-        <label for="value">Value:</label>
-        <input id="value" type="text" value="Hello, mBaaS!">
+        <label for="subject">Subject:</label>
+        <input id="subject" type="text" subject="Hello, mBaaS!">
+         <label for="grade">Grade:</label>
+        <input id="grade" type="text" grade="S">
     </div>
     <div id="button">
         <button id="btnA" class="btn" onclick="register()">Register</button>
